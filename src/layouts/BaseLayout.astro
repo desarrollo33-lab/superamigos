@@ -1,0 +1,74 @@
+---
+import SEOHead from "../components/SEOHead.astro";
+import SchemaLocalBusiness from "../components/SchemaLocalBusiness.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppButton from "../components/WhatsAppButton.astro";
+import "../app.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  zone?: string;
+}
+
+const { title, description, canonical, ogImage, ogType, zone } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <SEOHead
+      title={title}
+      description={description}
+      canonical={canonical}
+      ogImage={ogImage}
+      ogType={ogType}
+    />
+    <SchemaLocalBusiness {zone} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-white">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppButton />
+
+    <script>
+      const prefersReduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+      if (!prefersReduced) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("is-visible");
+                observer.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.1, rootMargin: "0px 0px -40px 0px" }
+        );
+        document
+          .querySelectorAll("[data-animate], [data-stagger]")
+          .forEach((el) => observer.observe(el));
+      } else {
+        document
+          .querySelectorAll("[data-animate], [data-stagger]")
+          .forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

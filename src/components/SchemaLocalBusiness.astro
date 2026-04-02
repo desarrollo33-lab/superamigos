@@ -1,0 +1,50 @@
+---
+import { siteConfig } from "../data/site";
+import { zones } from "../data/site";
+
+interface Props {
+  zone?: string;
+}
+
+const { zone: zoneSlug } = Astro.props;
+const zone = zones.find((z) => z.slug === zoneSlug);
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `https://superamigos.cl/zonas/${zoneSlug || "san-carlos-de-apoquindo"}`,
+  name: "Superamigos - Jardinero San Carlos de Apoquindo y Los Dominicos",
+  description:
+    "Jardinero profesional en San Carlos de Apoquindo, Los Dominicos y Las Condes oriente. Mantenimiento de jardines, poda, corte de césped y riego automático.",
+  url: "https://superamigos.cl",
+  telephone: siteConfig.phone,
+  email: siteConfig.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: zone?.name || "San Carlos de Apoquindo",
+    addressLocality: "Las Condes",
+    addressRegion: "Santiago",
+    postalCode: "7550000",
+    addressCountry: "CL",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: zone?.lat || siteConfig.geo.lat,
+    longitude: zone?.lng || siteConfig.geo.lng,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "08:00",
+      closes: "19:00",
+    },
+  ],
+  priceRange: siteConfig.priceRange,
+  areaServed: zones.map((z) => z.name),
+  image: "https://superamigos.cl/og-image.png",
+  sameAs: ["https://www.instagram.com/superamigoscl"],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

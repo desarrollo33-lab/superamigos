@@ -1,0 +1,192 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #16a34a;
+  --color-primary-dark: #15803d;
+  --color-primary-light: #dcfce7;
+  --color-secondary: #f0fdf4;
+  --color-accent: #fbbf24;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Outfit', system-ui, sans-serif;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+.font-heading {
+  font-family: 'Outfit', system-ui, sans-serif;
+}
+
+/* Animations */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-stagger] > * {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+[data-stagger].is-visible > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0ms; }
+[data-stagger].is-visible > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 80ms; }
+[data-stagger].is-visible > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 160ms; }
+[data-stagger].is-visible > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 240ms; }
+[data-stagger].is-visible > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 320ms; }
+[data-stagger].is-visible > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 400ms; }
+[data-stagger].is-visible > *:nth-child(n+7) { opacity: 1; transform: translateY(0); transition-delay: 480ms; }
+
+/* WhatsApp button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 1000;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 28px rgba(37, 211, 102, 0.65);
+}
+
+/* Service card hover */
+.service-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+/* Zone badge */
+.zone-badge {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  border: 1px solid #86efac;
+}
+
+/* FAQ */
+.faq-item {
+  border-bottom: 1px solid #e5e7eb;
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 0;
+  font-weight: 600;
+  color: #1f2937;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::after {
+  content: '+';
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  transition: transform 0.2s ease;
+}
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+.faq-item p {
+  padding-bottom: 1rem;
+  color: #4b5563;
+}
+
+/* Process step */
+.process-step {
+  position: relative;
+}
+.process-step::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 48px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #16a34a, #dcfce7);
+}
+.process-step:last-child::before {
+  display: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 4px;
+}
+
+/* CTA buttons */
+.btn-primary {
+  background: #16a34a;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.btn-primary:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline {
+  background: transparent;
+  color: #16a34a;
+  border: 2px solid #16a34a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  background: #dcfce7;
+}
